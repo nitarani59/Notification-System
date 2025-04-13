@@ -18,7 +18,7 @@ public class NotificationController {
 
     Map<String, NotificationService> notificationService;
     @Autowired
-    @Qualifier("push")
+//    @Qualifier("push")
     NotificationService notificationService1;
 
     public NotificationController(Map<String, NotificationService> notificationService) {
@@ -28,7 +28,8 @@ public class NotificationController {
     @PostMapping("/send")
     @Operation(summary = "Send Notification")
     public String sendNotification(@RequestBody NotificationDto notification) {
-//        NotificationService notificationService2 =  notificationService.getOrDefault(notificationService.get(notification.getType()), notificationService.get("sms"));
-        return notificationService1.sendNotification(notification.getType());
+        String type = notification.getType().toLowerCase(); // e.g., "sms", "email", "push"
+        NotificationService notificationService2 =  notificationService.getOrDefault(type, notificationService.get("sms"));
+        return notificationService2.sendNotification(notification);
     }
 }

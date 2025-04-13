@@ -3,6 +3,7 @@ package com.example.SmartNotificationManager.dto;
 public class NotificationDto {
     private String type;
     private String message;
+    private String to;
 
     public NotificationDto(String type, String message) {
         this.type = type;
@@ -23,6 +24,14 @@ public class NotificationDto {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
     }
 
     public NotificationDto() {
