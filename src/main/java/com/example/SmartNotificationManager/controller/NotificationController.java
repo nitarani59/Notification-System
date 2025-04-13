@@ -1,11 +1,11 @@
 package com.example.SmartNotificationManager.controller;
 
+import com.example.SmartNotificationManager.aspect.annotation.RateLimit;
 import com.example.SmartNotificationManager.dto.NotificationDto;
 import com.example.SmartNotificationManager.service.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +27,7 @@ public class NotificationController {
 
     @PostMapping("/send")
     @Operation(summary = "Send Notification")
+    @RateLimit
     public String sendNotification(@RequestBody NotificationDto notification) {
         String type = notification.getType().toLowerCase(); // e.g., "sms", "email", "push"
         NotificationService notificationService2 =  notificationService.getOrDefault(type, notificationService.get("sms"));
